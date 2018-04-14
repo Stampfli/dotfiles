@@ -53,3 +53,8 @@ unsetopt correct
 
 # run fortune on new terminal :)
 fortune
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $* ;}
