@@ -33,7 +33,6 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-sensible'
-Plugin 'justinmk/vim-sneak'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-surround'
 Plugin 'dkprice/vim-easygrep'
@@ -68,6 +67,9 @@ Plugin 'SuperTab'
 Plugin 'leafgarland/typescript-vim'
 " Vue.js
 Plugin 'posva/vim-vue'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
+Plugin 'mileszs/ack.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -306,3 +308,22 @@ let g:syntastic_pug_checkers = ['jade','pug']
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:sneak#streak = 1
 let g:airline_theme='bubblegum'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Fuzzy File Finder
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+noremap ff <Esc>:FZF<CR>
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ack/Ag
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+nnoremap <C-L> :Ack --ignore "log/" --ignore "vendor/" -i 
+
+if executable('ag')
+    let g:ackprg = 'ag --vimgrep'
+endif

@@ -29,7 +29,7 @@ export DISABLE_AUTO_TITLE="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.dotfiles/oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(colorize compleat dirpersist autojump git gulp history cp)
+plugins=(colorize compleat dirpersist autojump git gulp history cp composer)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -58,3 +58,51 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
 code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $* ;}
+
+if [[ -x "`whence -p dircolors`" ]]; then
+  eval `dircolors`
+  alias ls='ls -F --color=auto'
+else
+  alias ls='ls -F'
+fi
+
+alias ll='ls -l'
+alias la='ls -a'
+
+alias dev-koho="yarn run serve-koho"
+alias dev="yarn run serve"
+alias serve="yarn run serve"
+alias build="yarn run build"
+alias test="yarn run test"
+alias lint="yarn run lint"
+alias gpush='git push origin $(git_current_branch)'
+alias gpull='git pull origin $(git_current_branch)'
+alias gprune='git branch --merged master | grep -v master | xargs git branch -d'
+alias gbl='git for-each-ref --count=10 --sort=-committerdate refs/heads/ --format="%(refname:short)"'
+
+#function that retrieves the current branch name
+git_current_branch() {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+}
+
+gcos() {
+  git checkout $(git branch --list "*FT-$1*")
+}
+
+setopt MENU_COMPLETE
+autoload -U compinit
+compinit
+setopt completeinword
+
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*:killall:*' command 'ps -u $USER -o cmd'
+
+autoload select-word-style
+select-word-style shell
+
+HISTFILE=~/.zhistory
+HISTSIZE=SAVEHIST=10000
+setopt sharehistory
+setopt extendedhistory
+export PATH="/usr/local/opt/postgresql@10/bin:/usr/local/Cellar/postgresql\@10/10.11/bin/:/usr/local/opt/openssl@1.1/bin:$PATH"
+export PGHOST=localhost

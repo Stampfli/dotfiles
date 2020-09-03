@@ -121,3 +121,6 @@ function tre(){
 function weather() {
   curl wttr.in/$1
 }
+function moon() {
+  curl wttr.in/Moon
+}
