@@ -106,3 +106,4 @@ setopt sharehistory
 setopt extendedhistory
 export PATH="/usr/local/opt/postgresql@10/bin:/usr/local/Cellar/postgresql\@10/10.11/bin/:/usr/local/opt/openssl@1.1/bin:$PATH"
 export PGHOST=localhost
+export PATH="/usr/local/opt/postgresql@10/bin:$PATH"
